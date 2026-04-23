@@ -6,7 +6,7 @@ import Messages from "./dbMessages.js";
 //App Config
 const app = express();
 const port = process.env.PORT || 9000;
-const connection_url = " mongodb//localhost:27017/chat";
+const connection_url = "mongodb://localhost/chat";
 //Middleware
 app.use(express.json());
 app.use(Cors());
@@ -17,6 +17,8 @@ app.get("/", (req, res) => res.status(200).send("Hello TheWebDev"));
 app.listen(port, () => console.log(`Listening on localhost: ${port}`));
 app.post("/messages/new", async (req, res) => {
   try {
+    console.log("Received a new message");
+    console.log(req.body);
     const dbMessage = req.body;
     Messages.create(dbMessage);
     res.status(201).send(dbMessage);
